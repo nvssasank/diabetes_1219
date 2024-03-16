@@ -1,20 +1,20 @@
 import numpy as np
 import pandas as pd
-# import plotly.express as px
+import plotly.express as px
 import json
 
 import pickle
-# from sklearn.neighbors import KNeighborsClassifier
-# from sklearn.model_selection import train_test_split
-# from sklearn.ensemble import RandomForestClassifier
-# from sklearn.metrics import accuracy_score
-# from PIL import Image
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+from PIL import Image
 import streamlit as st
 
 
-KNN=pickle.load(open("./KNN.sav","rb"))
-LR=pickle.load(open("./LR.sav","rb"))
-RF=pickle.load(open("./RF.sav","rb"))
+KNN=pickle.load(open("KNN.sav","rb"))
+LR=pickle.load(open("LR.sav","rb"))
+RF=pickle.load(open("RF.sav","rb"))
 
 #set tab name and favicon
 st.set_page_config(page_title="Diabetes Detection", page_icon="💉", layout='centered', initial_sidebar_state='auto')

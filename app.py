@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+# import plotly.express as px
 import json
 
 import pickle
@@ -51,9 +52,9 @@ st.header('User Input and Prediction:')
 st.markdown('### Input:')
 
  #sidebar 
-# st.sidebar.header('User Input')
-# st.sidebar.write('Predict whether you have diabetes or not by entering the parameters. The results are located at the bottom of the page')
-option = st.selectbox('Select your Machine Learning Model', ('K Nearest Neighbors', 'Logistic Regression', 'Random Forest'))
+st.sidebar.header('User Input')
+st.sidebar.write('Predict whether you have diabetes or not by entering the parameters. The results are located at the bottom of the page')
+option = st.sidebar.selectbox('Select your Machine Learning Model', ('K Nearest Neighbors', 'Logistic Regression', 'Random Forest'))
 
 
 
@@ -62,14 +63,14 @@ option = st.selectbox('Select your Machine Learning Model', ('K Nearest Neighbor
 
 #Get User input
 def getUserInfo():
-    pregnancies = st.text_input('Pregnancies had', '3')
-    glucose = st.text_input('Plasma Glucose Concentration (mg/dl)', '117')
-    bloodPressure = st.text_input('Diastolic Blood Pressure (mm Hg)', '72')
-    skinThickness = st.text_input('Triceps skin fold thickness (mm)', '23')
-    insulin = st.text_input('Serum Insulin (U/ml)', '30.0')
-    bmi = st.text_input('Body Mass Index (BMI)', '32.0')
-    diabetesPedigreeFunction = st.text_input('Diabetes Pedigree Function', '0.3725')
-    age = st.text_input('Age', '29')
+    pregnancies = st.sidebar.text_input('Pregnancies had', '3')
+    glucose = st.sidebar.text_input('Plasma Glucose Concentration (mg/dl)', '117')
+    bloodPressure = st.sidebar.text_input('Diastolic Blood Pressure (mm Hg)', '72')
+    skinThickness = st.sidebar.text_input('Triceps skin fold thickness (mm)', '23')
+    insulin = st.sidebar.text_input('Serum Insulin (U/ml)', '30.0')
+    bmi = st.sidebar.text_input('Body Mass Index (BMI)', '32.0')
+    diabetesPedigreeFunction = st.sidebar.text_input('Diabetes Pedigree Function', '0.3725')
+    age = st.sidebar.text_input('Age', '29')
     
     # Convert inputs to appropriate data types
     pregnancies = int(pregnancies)
@@ -133,24 +134,24 @@ st.subheader('Prediction: ')
 if prediction==1:
     st.warning("You have a probability of having diabetes. Please consult with your doctor")
 elif prediction==0:
-    st.success("Congratulations! You have a low chance of having diabetes")
+    st.success("Congratulations! You Don't have Traces of diabetes")
 
 
 
 
 #show the prediction probability 
-st.subheader('Prediction Probability: ')
+# st.subheader('Prediction Probability: ')
 
 
-st.markdown(
-    """
-    <style>
-        .stProgress > div > div > div > div {
-            background-color: #f63367;
-        }
-    </style>""",
-    unsafe_allow_html=True,
-)
+# st.markdown(
+#     """
+#     <style>
+#         .stProgress > div > div > div > div {
+#             background-color: #f63367;
+#         }
+#     </style>""",
+#     unsafe_allow_html=True,
+# )
 
-st.progress(predictionProbability[0])
-st.markdown(f"<center> You have an <b>{round(predictionProbability[0]*100)}%</b> chance of having diabetes </center>", unsafe_allow_html=True)
+# st.progress(predictionProbability[0])
+# st.markdown(f"<center> You have an <b>{round(predictionProbability[0]*100)}%</b> chance of having diabetes </center>", unsafe_allow_html=True)

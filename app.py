@@ -11,7 +11,7 @@ import pickle
 import streamlit as st
 
 
-KNN=pickle.load(open("/KNN.sav","rb"))
+KNN=pickle.load(open("\KNN.sav","rb"))
 LR=pickle.load(open("/LR.sav","rb"))
 RF=pickle.load(open("/RF.sav","rb"))
 

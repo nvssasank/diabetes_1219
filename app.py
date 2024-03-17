@@ -26,13 +26,6 @@ st.write("""
 # Diabetes Detection 
 Predict if someone has diabetes or not using Machine Learning
 """)
-
-#image
-# image=Image.open('image.jpg')
-# st.image(image, use_column_width=True)
-
-#Load Data
-# @st.cache
 def loadData():
     df=pd.read_csv("diabetes.csv")
     #clean missing values with reference to their distribution
@@ -101,9 +94,6 @@ def getUserInfo():
 
     return features
 
-
- 
-
 #Store user input to variable
 userInput=getUserInfo()
 
@@ -111,47 +101,44 @@ userInput=getUserInfo()
 if option=='K Nearest Neighbors':
     accuracy='71%'
     prediction=KNN.predict(userInput)
-    predictionProbability=KNN.predict_proba(userInput)[:,1]
+    st.text('K Nearest Neighbours model Prediction: ')
+    if prediction==1:
+        st.warning("You have a probability of having diabetes. Please consult with your doctor")
+    elif prediction==0:
+        st.success("Congratulations! You Don't have Traces of diabetes")
 elif option=='Logistic Regression':
     accuracy='73%'
     prediction=LR.predict(userInput)
-    predictionProbability=LR.predict_proba(userInput)[:,1]
+    st.text('Logistic Regression model Prediction: ')
+    if prediction==1:
+        st.warning("You have a probability of having diabetes. Please consult with your doctor")
+    elif prediction==0:
+        st.success("Congratulations! You Don't have Traces of diabetes")
 elif option=='Random Forest':
     accuracy='74%'
     prediction=RF.predict(userInput)
-    predictionProbability=RF.predict_proba(userInput)[:,1]
+    st.text('Random Forest model Prediction: ')
+    if prediction==1:
+        st.warning("You have a probability of having diabetes. Please consult with your doctor")
+    elif prediction==0:
+        st.success("Congratulations! You Don't have Traces of diabetes")
 
 
+KNN1 = KNN.predict(userInput)
+LR1 = LR.predict(userInput)
+RF1 = RF.predict(userInput)
 
+st.markdown("""<style>div.row-widget.col-6{flex: 0 0 50%;max-width: 50%;}.fullScreenFrame{width: 100%;height: 100%;}</style>""", unsafe_allow_html=True)
+st.markdown("""<style>div.row-widget.stRadio > div{flex: 0 0 50%;max-width: 50%;}</style>""", unsafe_allow_html=True)
+predictionList=[KNN1[0],LR1[0],RF1[0]]
 
+from collections import Counter
+predictionList = [item for item, count in Counter(predictionList).items() if count > 1]
 
-
-# st.subheader(f'Model Selected: {option}')
-# st.write(f"Model Accuracy: {accuracy}")
-
-#Subheader classification display
-st.subheader('Prediction: ')
-if prediction==1:
-    st.warning("You have a probability of having diabetes. Please consult with your doctor")
-elif prediction==0:
-    st.success("Congratulations! You Don't have Traces of diabetes")
-
-
-
-
-#show the prediction probability 
-# st.subheader('Prediction Probability: ')
-
-
-# st.markdown(
-#     """
-#     <style>
-#         .stProgress > div > div > div > div {
-#             background-color: #f63367;
-#         }
-#     </style>""",
-#     unsafe_allow_html=True,
-# )
-
-# st.progress(predictionProbability[0])
-# st.markdown(f"<center> You have an <b>{round(predictionProbability[0]*100)}%</b> chance of having diabetes </center>", unsafe_allow_html=True)
+st.markdown("""<style>div.row-widget.stRadio > div{flex: 0 0 50%;max-width: 50%;}</style>""", unsafe_allow_html=True)
+st.markdown("Over All Predicted Diagnosis: ", unsafe_allow_html=True)
+for i in range(len(predictionList)):
+    if predictionList[i] == 1:
+        st.warning("You have a probability of having diabetes. Please consult with your doctor")      
+    else:
+        st.success("Congratulations! You Don't have Traces of diabetes")
